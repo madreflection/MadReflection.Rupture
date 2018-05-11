@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>MadReflection.Rupture</id>
-    <version>0.0.0</version>
+    <version>0.0.1</version>
     <title>Rupture</title>
     <authors>Benn Benson</authors>
     <owners>Benn Benson</owners>
@@ -10,9 +10,9 @@
     <description>Rupture handles casting and unboxing with null handling from object containers such as data sets and data readers.</description>
     <!--<releaseNotes></releaseNotes>-->
     <language>en-us</language>
-    <projectUrl>https://github.com/bennbenson/MadReflection.Rupture</projectUrl>
+    <projectUrl>https://github.com/madreflection/MadReflection.Rupture</projectUrl>
     <!--<iconUrl></iconUrl>-->
-    <licenseUrl>https://github.com/bennbenson/MadReflection.Rupture/blob/master/LICENSE.md</licenseUrl>
+    <licenseUrl>https://github.com/madreflection/MadReflection.Rupture/blob/master/LICENSE.md</licenseUrl>
     <copyright>Copyright (c) 2017-2018 Benn Benson</copyright>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
