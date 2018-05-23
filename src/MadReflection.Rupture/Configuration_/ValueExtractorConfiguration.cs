@@ -46,7 +46,7 @@ namespace MadReflection.Rupture
 		/// Configures unwrapping functionality.
 		/// </summary>
 		/// <param name="isWrappedFunc">A function that tests if a value is wrapped in another object.</param>
-		/// <param name="unwrapFunc">A function that unwraps</param>
+		/// <param name="unwrapFunc">A function that gets the value from a wrapper object.</param>
 		/// <remarks>
 		/// <paramref name="unwrapFunc"/> is only called if <paramref name="isWrappedFunc"/> returns true.
 		/// </remarks>
