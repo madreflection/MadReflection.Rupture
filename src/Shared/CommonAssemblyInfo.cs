@@ -1,9 +1,9 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("MadReflection.Rupture")]
 [assembly: AssemblyProduct("Rupture")]
-[assembly: AssemblyCopyright("Copyright � 2017-2018 Benn Benson")]
+[assembly: AssemblyCopyright("Copyright © 2017-2018 Benn Benson")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
