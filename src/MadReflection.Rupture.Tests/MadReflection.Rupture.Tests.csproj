@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework><!--netcoreapp2.0;netcoreapp1.0;net45;net40;net35-->
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <RootNamespace>MadReflection.Rupture.Tests</RootNamespace>
+    <AssemblyName>MadReflection.Rupture.Tests</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
