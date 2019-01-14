@@ -32,7 +32,7 @@ namespace MadReflection.Rupture
 		/// <returns>A new <see cref="ValueExtractor"/> instance.</returns>
 		public static ValueExtractor Create(ValueExtractorConfigurator configurator)
 		{
-			if (configurator == null)
+			if (configurator is null)
 				throw new ArgumentNullException(nameof(configurator));
 
 			ValueExtractor extractor = new ValueExtractor();
@@ -48,7 +48,7 @@ namespace MadReflection.Rupture
 		/// </summary>
 		/// <typeparam name="T">The type of the value to extract.</typeparam>
 		/// <param name="value">The value to examine.</param>
-		/// <returns></returns>
+		/// <returns>The value extracted.</returns>
 		public T Extract<T>(object value)
 		{
 			ExtractorFunc<T> extract = GetFinalExtractor<T>();
@@ -67,9 +67,9 @@ namespace MadReflection.Rupture
 					_extractors.TryGetValue(type, out del);
 
 					actual = del as ExtractorFunc<T>;
-					if (actual == null)
+					if (actual is null)
 					{
-						MethodInfo factoryMethod = null;
+						MethodInfo factoryMethod;
 						if (Nullable.GetUnderlyingType(type) is Type underlyingValueType)
 							factoryMethod = ReflectionHelper.GetPrivateGenericMethod(typeof(ValueExtractor), nameof(GetNullableValueTypeExtractor), underlyingValueType);
 						else if (type.GetTypeInfo().IsValueType)
@@ -94,15 +94,18 @@ namespace MadReflection.Rupture
 
 			return value =>
 			{
-				if (value is null || IsNull(value))
+				if (IsNull(value))
 					return null;
 
 				if (IsWrapped(value))
 				{
 					value = Unwrap(value);
-					if (value is null || IsNull(value))
+					if (IsNull(value))
 						return null;
 				}
+
+				if (_converter != null && !(value is T))
+					value = (T)_converter.ConvertToType(value, typeof(T));
 
 				return basicHandler(value);
 			};
@@ -115,15 +118,18 @@ namespace MadReflection.Rupture
 
 			return value =>
 			{
-				if (value is null || IsNull(value))
+				if (IsNull(value))
 					throw CannotCastNullToValueType(typeof(T));
 
 				if (IsWrapped(value))
 				{
 					value = Unwrap(value);
-					if (value is null || IsNull(value))
+					if (IsNull(value))
 						throw CannotCastNullToValueType(typeof(T));
 				}
+
+				if (_converter != null && !(value is T))
+					value = (T)_converter.ConvertToType(value, typeof(T));
 
 				return basicHandler(value);
 			};
@@ -136,15 +142,18 @@ namespace MadReflection.Rupture
 
 			return value =>
 			{
-				if (value is null || IsNull(value))
+				if (IsNull(value))
 					return null;
 
 				if (IsWrapped(value))
 				{
 					value = Unwrap(value);
-					if (value is null || IsNull(value))
+					if (IsNull(value))
 						return null;
 				}
+
+				if (_converter != null && !(value is T))
+					value = (T)_converter.ConvertToType(value, typeof(T));
 
 				return basicHandler(value);
 			};
@@ -177,11 +186,11 @@ namespace MadReflection.Rupture
 		}
 
 
-		private bool IsNull(object value) => _nullTester != null && _nullTester.IsNull(value);
+		private bool IsNull(object value) => value is null || (_nullTester?.IsNull(value) ?? false);
 
-		private bool IsWrapped(object value) => _unwrapper != null && _unwrapper.IsWrapped(value);
+		private bool IsWrapped(object value) => _unwrapper?.IsWrapped(value) ?? false;
 
-		private object Unwrap(object value) => _unwrapper != null ? _unwrapper.Unwrap(value) : value;
+		private object Unwrap(object value) => _unwrapper?.Unwrap(value) ?? value;
 
 		internal static InvalidCastException InvalidCast(Type sourceType, Type destinationType) => new InvalidCastException($"Unable to cast from '{sourceType.Name}' to '{destinationType.Name}'");
 

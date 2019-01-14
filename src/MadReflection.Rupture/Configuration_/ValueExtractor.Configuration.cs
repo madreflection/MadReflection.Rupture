@@ -23,7 +23,7 @@ namespace MadReflection.Rupture
 
 			public override void UseNullTester(INullTester nullTester)
 			{
-				if (nullTester == null)
+				if (nullTester is null)
 					throw new ArgumentNullException(nameof(nullTester));
 
 				_extractor._nullTester = nullTester;
@@ -31,7 +31,7 @@ namespace MadReflection.Rupture
 
 			public override void UseNullTester(Func<object, bool> isNullFunc)
 			{
-				if (isNullFunc == null)
+				if (isNullFunc is null)
 					throw new ArgumentNullException(nameof(isNullFunc));
 
 				_extractor._nullTester = new FunctorNullTester(isNullFunc);
@@ -39,7 +39,7 @@ namespace MadReflection.Rupture
 
 			public override void UseUnwrapper(IUnwrapper unwrapper)
 			{
-				if (unwrapper == null)
+				if (unwrapper is null)
 					throw new ArgumentNullException(nameof(unwrapper));
 
 				_extractor._unwrapper = unwrapper;
@@ -47,9 +47,9 @@ namespace MadReflection.Rupture
 
 			public override void UseUnwrapper(Func<object, bool> isWrappedFunc, Func<object, object> unwrapFunc)
 			{
-				if (isWrappedFunc == null)
+				if (isWrappedFunc is null)
 					throw new ArgumentNullException(nameof(isWrappedFunc));
-				if (unwrapFunc == null)
+				if (unwrapFunc is null)
 					throw new ArgumentNullException(nameof(unwrapFunc));
 
 				_extractor._unwrapper = new FunctorUnwrapper(isWrappedFunc, unwrapFunc);
@@ -57,7 +57,7 @@ namespace MadReflection.Rupture
 
 			public override void UseConverter(IConverter converter)
 			{
-				if (converter == null)
+				if (converter is null)
 					throw new ArgumentNullException(nameof(converter));
 
 				_extractor._converter = converter;
@@ -65,7 +65,7 @@ namespace MadReflection.Rupture
 
 			public override void UseConverter(Func<object, Type, object> convertToTypeFunc)
 			{
-				if (convertToTypeFunc == null)
+				if (convertToTypeFunc is null)
 					throw new ArgumentNullException(nameof(convertToTypeFunc));
 
 				_extractor._converter = new FunctorConverter(convertToTypeFunc);
@@ -73,7 +73,7 @@ namespace MadReflection.Rupture
 
 			public override void UseHandler<T>(Func<object, T> handler)
 			{
-				if (handler == null)
+				if (handler is null)
 					throw new ArgumentNullException(nameof(handler));
 
 				Type type = typeof(T);
@@ -84,7 +84,7 @@ namespace MadReflection.Rupture
 
 			public override void UseHandler<T>(Action<object, IExtractionContext<T>> handler)
 			{
-				if (handler == null)
+				if (handler is null)
 					throw new ArgumentNullException(nameof(handler));
 
 				Type type = typeof(T);

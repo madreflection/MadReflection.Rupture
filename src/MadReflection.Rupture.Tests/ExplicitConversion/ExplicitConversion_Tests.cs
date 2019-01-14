@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace MadReflection.Rupture.Tests.ExplicitConversion
 {
@@ -9,14 +10,18 @@ namespace MadReflection.Rupture.Tests.ExplicitConversion
 		public void Unbox_ExplicitConvert_DataReader_Columns()
 		{
 			// Arrange
-			using (MockDataReader reader = new MockDataReader())
+
+			// Act
+			using (FakeDataReader reader = new FakeDataReader())
 			{
 				if (reader.Read())
 				{
-					// Act
-					int? i1 = reader.Column<int?>("Int32");
+					int? i = reader.Column<int?>("Int32");
+
 					long id = reader.Column<decimal, long>("Decimal");
 					long? idx = reader.Column<decimal?, long?>("Decimal");
+
+					Uri uri = reader.Column<string, Uri>("UriString");
 				}
 			}
 

@@ -15,7 +15,7 @@
 		public int Value => (int)_value;
 
 
-		bool ITestNullable.IsNull => _value == null;
+		bool ITestNullable.IsNull => _value is null;
 
 		object ITestNullable.Value => (int)_value;
 	}

@@ -13,7 +13,6 @@ namespace MadReflection.Rupture
 		/// </summary>
 		T Result { set; }
 
-
 		/// <summary>
 		/// Throws a general <see cref="InvalidCastException"/>.
 		/// </summary>

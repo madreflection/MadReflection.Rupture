@@ -10,13 +10,13 @@ namespace MadReflection.Rupture.Tests.NoConversion
 		public void Unbox_DataReader_Columns_with_Default_Handlers()
 		{
 			// Arrange
-			using (MockDataReader reader = new MockDataReader())
+
+			// Act
+			using (FakeDataReader reader = new FakeDataReader())
 			{
 				while (reader.Read())
 				{
-					// Act
 					int? refNullNull = reader.Column<int?>("null");
-					//int? dbNullNull = reader.Column<int?>("DBNull");
 
 					bool boolean = reader.Column<bool>("Boolean");
 					char ch = reader.Column<char>("Char");

@@ -9,7 +9,7 @@ namespace MadReflection.Rupture
 
 		public FunctorNullTester(Func<object,bool> isNullFunc)
 		{
-			if (isNullFunc == null)
+			if (isNullFunc is null)
 				throw new ArgumentNullException(nameof(isNullFunc));
 
 			_isNullFunc = isNullFunc;

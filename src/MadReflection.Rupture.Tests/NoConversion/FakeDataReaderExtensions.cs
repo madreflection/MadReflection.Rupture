@@ -20,17 +20,17 @@ namespace MadReflection.Rupture.Tests.NoConversion
 		});
 
 
-		public static T Column<T>(this MockDataReader reader, int i)
+		public static T Column<T>(this FakeDataReader reader, int i)
 		{
-			if (reader == null)
+			if (reader is null)
 				throw new ArgumentException(nameof(reader));
 
 			return _extractor.Extract<T>(reader.GetValue(i));
 		}
 
-		public static T Column<T>(this MockDataReader reader, string name)
+		public static T Column<T>(this FakeDataReader reader, string name)
 		{
-			if (reader == null)
+			if (reader is null)
 				throw new ArgumentException(nameof(reader));
 
 			return _extractor.Extract<T>(reader.GetValue(reader.GetOrdinal(name)));

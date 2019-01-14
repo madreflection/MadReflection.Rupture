@@ -31,10 +31,6 @@ namespace MadReflection.Rupture
 
 		internal bool ResultAssigned => _resultAssigned;
 
-		//public T Extract(object value) => _extractor.Extract<T>(value);
-
-		//public object ConvertToType(object value) => _converter != null ? _converter.ConvertToType(value, typeof(T)) : value;
-
 
 		public void ThrowInvalidCastException(Type sourceType)
 		{

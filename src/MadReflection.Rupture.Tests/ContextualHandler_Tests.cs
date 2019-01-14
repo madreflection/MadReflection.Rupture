@@ -5,7 +5,6 @@ namespace MadReflection.Rupture.Tests
 {
 	public class ContextualHandler_Tests
 	{
-
 		[TestCase]
 		public void ContextualHandler_Throws_InvalidCastException_If_No_Result_Assigned()
 		{
@@ -13,7 +12,7 @@ namespace MadReflection.Rupture.Tests
 			ValueExtractor extractor = ValueExtractor.Create(config =>
 			{
 				config.UseHandler<string>(
-					(val, ctx) =>
+					(obj, ctx) =>
 					{
 					});
 			});
@@ -56,7 +55,5 @@ namespace MadReflection.Rupture.Tests
 
 			// Assert
 		}
-
-
 	}
 }

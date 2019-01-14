@@ -10,9 +10,9 @@ namespace MadReflection.Rupture
 
 		public FunctorUnwrapper(Func<object, bool> isWrappedFunc, Func<object, object> unwrapFunc)
 		{
-			if (isWrappedFunc == null)
+			if (isWrappedFunc is null)
 				throw new ArgumentNullException(nameof(isWrappedFunc));
-			if (unwrapFunc == null)
+			if (unwrapFunc is null)
 				throw new ArgumentNullException(nameof(unwrapFunc));
 
 			_isWrappedFunc = isWrappedFunc;

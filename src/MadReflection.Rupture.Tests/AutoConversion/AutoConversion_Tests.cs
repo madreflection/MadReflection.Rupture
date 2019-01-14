@@ -10,13 +10,17 @@ namespace MadReflection.Rupture.Tests.AutoConversion
 		public void Unbox_AutoConvert_DataReader_Columns()
 		{
 			// Arrange
-			using (MockDataReader reader = new MockDataReader())
+
+			// Act
+			using (FakeDataReader reader = new FakeDataReader())
 			{
 				while (reader.Read())
 				{
-					// Act
+					int? i = reader.Column<int?>("Int32");
+
 					long id = reader.Column<long>("Decimal");
-					int? junk = reader.Column<int?>("DBNull");
+					long? idx = reader.Column<long?>("Decimal");
+
 					Uri uri = reader.Column<Uri>("UriString");
 				}
 			}

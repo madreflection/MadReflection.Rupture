@@ -32,13 +32,11 @@ namespace MadReflection.Rupture
 				if (destinationType is null)
 					throw new ArgumentNullException(nameof(destinationType));
 
-				Type underlyingTargetType;
-				if (value == null)
+				if (value is null)
 				{
 					if (destinationType.GetTypeInfo().IsValueType)
 					{
-						underlyingTargetType = Nullable.GetUnderlyingType(destinationType);
-						if (underlyingTargetType != null)
+						if (Nullable.GetUnderlyingType(destinationType) is Type)
 							return null;
 
 						throw new InvalidCastException($"Cannot cast null to '{destinationType.Name}'.");
@@ -55,17 +53,16 @@ namespace MadReflection.Rupture
 				// We already know that the input value is not null, therefore the output won't be,
 				// either.  If the target type is a nullable value type, we need to convert to the
 				// underlying value type, which will end up being boxed upon return, anyway.
-				underlyingTargetType = Nullable.GetUnderlyingType(destinationType);
-				if (underlyingTargetType != null)
+				if (Nullable.GetUnderlyingType(destinationType) is Type underlyingTargetType)
 					return ConvertToType(value, underlyingTargetType);
 
 				// Make a bilateral attempt to use a type converter.
 				TypeConverter converter = TypeDescriptor.GetConverter(sourceType);
-				if (converter != null && converter.CanConvertTo(destinationType))
+				if (converter?.CanConvertTo(destinationType) ?? false)
 					return converter.ConvertTo(value, destinationType);
 
 				converter = TypeDescriptor.GetConverter(destinationType);
-				if (converter != null && converter.CanConvertFrom(sourceType))
+				if (converter?.CanConvertFrom(sourceType) ?? false)
 					return converter.ConvertFrom(value);
 
 				// If all else fails, try using the default.  Chances are slim that this will actually

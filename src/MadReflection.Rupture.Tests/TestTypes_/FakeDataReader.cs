@@ -3,7 +3,7 @@ using System.Data;
 
 namespace MadReflection.Rupture.Tests
 {
-	public class MockDataReader : IDataReader
+	public class FakeDataReader : IDataReader
 	{
 		#region FakeDataReader members
 		private static readonly string[] _names = new string[]  { "null", "DBNull",     "String", "Boolean", "Char", "SByte",  "Byte",  "Int16",  "UInt16",  "Int32", "UInt32", "Int64", "UInt64", "Single", "Double", "Decimal", "DateTime",                "TimeSpan",               "DateString", "TimeString", "Guid",     "Uri",                             "UriString",              "YesNoString" };
@@ -13,12 +13,12 @@ namespace MadReflection.Rupture.Tests
 		private int _recordsAffected;
 
 
-		public MockDataReader()
+		public FakeDataReader()
 			: this(1)
 		{
 		}
 
-		public MockDataReader(int recordCount)
+		public FakeDataReader(int recordCount)
 		{
 			_recordCount = Math.Max(recordCount, 0);
 		}
@@ -119,7 +119,7 @@ namespace MadReflection.Rupture.Tests
 
 		public int GetValues(object[] values)
 		{
-			if (values == null)
+			if (values is null)
 				throw new ArgumentNullException(nameof(values));
 
 			int count = Math.Min(values.Length, _values.Length);
