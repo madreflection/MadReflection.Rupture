@@ -2,11 +2,12 @@
 
 ## 0.1.1
 
-* Fixed the copyright.  I keep forgetting it's 2019.
+* Updated the copyright.
 
 ## 0.1.0
 
 * Completed the conversion implementation.
+* Added a Strong Name to the assembly.
 
 ## 0.0.1
 
