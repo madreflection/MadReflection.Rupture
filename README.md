@@ -20,61 +20,16 @@ Install-Package MadReflection.Rupture
 * **Unwrapping** - Accessing a value that's held in a container object (e.g. SqlInt32.Value -> Int32).
 * **Type conversion** - Changing a value to an entirely different type (e.g. Decimal -> Int64).
 
-Rupture performs *either* unboxing *or* up-casting depending on whether the expected type is of a reference type or a value type.  All other operations are evaluated in the above sequence as enabled in the configuration.
+Rupture performs *either* unboxing *or* up-casting depending on whether the expected type is of a value type or a reference type.  All other operations are evaluated in the above sequence as enabled in the configuration.
 
 ## How To Use It
 
-Start by configuring an instance.  This is usually done in a static class that will host the extension method(s) that will use it.  The following example shows how one might want to configure a `ValueExtractor` instance to be used by extension methods for `SqlDataReader` and `SqlParameter`.
-
-```csharp
-private static readonly ValueExtractor _extractor = ValueExtractor.Create(config =>
-{
-    // Reference null testing is already covered.  This *adds* a DBNull check on top of it.
-    config.UseNullTester(obj => obj is DBNull);
-});
-```
-
-Then write extension methods for your needs.
-
-```csharp
-// Column<T> extension methods for SqlDataReader
-
-public static T Column<T>(this SqlDataReader reader, int i)
-{
-    if (reader is null)
-        throw new ArgumentNullException(nameof(reader));
-
-    return _valueExtractor.Extract<T>(reader.GetValue(i));
-}
-
-public static T Column<T>(this SqlDataReader reader, string name)
-{
-    if (reader is null)
-        throw new ArgumentNullException(nameof(reader));
-
-    return _valueExtractor.Extract<T>(reader.GetValue(reader.GetOrdinal(name)));
-}
-
-
-// GetValue<T> extension method for SqlParameter, useful for output parameters
-
-public static T GetValue<T>(this SqlParameter parameter)
-{
-    if (parameter is null)
-        throw new ArgumentNullException(nameof(parameter));
-
-    return _valueExtractor.Extract<T>(parameter.Value);
-}
-```
-
-See the [wiki](wiki) for more examples of extension methods for other ADO.NET providers.
-
-### Default Extractor
-
-`ValueExtractor.Default` is a completely uncustomized instance.  Using that and casting from `object` are essentially the same.  It's useless for practical purposes and is mostly intended as a baseline for the unit tests.
+For usage details and examples, please [see the wiki](wiki).
 
 ## Etymology
 
 As an author of an open-source library, I found naming a little challenging in this case.  Whenever possible, I like to have a brand name for the library, something that sets it apart.  I like "Rupture" because there were no NuGet packages matching that search term so it was completely unique.
 
-On the other hand, the type name `ValueExtractor` did not sit well with me but it was the best I could do.  The library is currently in the 0.x.x version range because I'm following SemVer rules, I haven't entirely settled on that type name, and if I changed something like that after going to 1.0.0, SemVer rules would require a full version jump just for that and I want to avoid that at this point.  I would rather have that locked in before going to 1.0.0.  I'm open to suggestions.
+On the other hand, the type name `ValueExtractor` did not sit well with me but it was the best I could do.  The library is currently in the 0.x.x version range because I'm following SemVer rules, I haven't entirely settled on that type name, and if I changed something like that after going to 1.0.0, SemVer rules would require a full version jump just for that and I want to avoid that at this point.  I would prefer to have that locked in before going to 1.0.0.  I'm open to suggestions.
+
+***Disclaimer***: There is an NPM package called "rupture" which is unrelated.  I named my library without any knowledge of the other.  Mine is not meant to replace, supplant, or otherwise compete with the other.
