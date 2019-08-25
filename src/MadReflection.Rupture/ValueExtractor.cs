@@ -7,7 +7,7 @@ namespace MadReflection.Rupture
 	/// <summary>
 	/// Provides value extraction functionality.
 	/// </summary>
-	public partial class ValueExtractor
+	public sealed partial class ValueExtractor
 	{
 		private INullTester _nullTester;
 		private IUnwrapper _unwrapper;
