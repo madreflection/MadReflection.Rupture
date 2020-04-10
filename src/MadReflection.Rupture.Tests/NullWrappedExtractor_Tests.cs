@@ -42,5 +42,18 @@ namespace MadReflection.Rupture.Tests
 			// Assert
 			Assert.That(result, Is.EqualTo(input));
 		}
+
+		[TestCase]
+		public void Extract_Null_Returns_Null()
+		{
+			// Arrange
+			WrappedInt32? value = null;
+
+			// Act
+			int? result = _extractor.Extract<int?>(value);
+
+			// Assert
+			Assert.That(result, Is.Null);
+		}
 	}
 }
