@@ -17,16 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MadReflection.Rupture\MadReflection.Rupture.csproj" />
+    <ProjectReference Include="$(ProjectDir)..\MadReflection.Rupture\MadReflection.Rupture.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Include="$(ProjectDir)..\Shared\CommonAssemblyInfo.cs" Link="Properties\CommonAssemblyInfo.cs" />
     <Compile Include="$(ProjectDir)..\..\submodules\MadReflection.Shared\src\MadReflection.AssemblyInfo.cs" Link="Properties\MadReflection.AssemblyInfo.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
 
 </Project>
